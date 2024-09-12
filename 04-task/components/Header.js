@@ -15,11 +15,11 @@ const Header = () => {
         </div>
         <nav>
           <ul className="flex space-x-4 items-center">
-            <li>
+            {/* <li>
               <Link href="/protected">
                 <p className="relative hover:underline-animation">Protected</p>
               </Link>
-            </li>
+            </li> */}
             <li>
               <Link href="/clientprotected">
                 <p className="relative hover:underline-animation">

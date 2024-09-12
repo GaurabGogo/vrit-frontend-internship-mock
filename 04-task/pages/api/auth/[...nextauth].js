@@ -11,7 +11,7 @@ export default NextAuth({
       },
       authorize: async (credentials) => {
         // Hardcoded user
-        const user = { id: 1, name: "User" };
+        const user = { id: 1, name: "User", email: "user@example.com" };
         if (
           credentials.username === "user" &&
           credentials.password === "pass"
@@ -26,23 +26,18 @@ export default NextAuth({
   pages: {
     signIn: "/auth/signin",
   },
-  session: {
-    strategy: "jwt", // Use JWT for session management
-  },
   callbacks: {
+    async session({ session, token, user }) {
+      // Customize session object
+      session.user.id = token.id; // Add user ID to session
+      return session;
+    },
     async jwt({ token, user }) {
+      // Persist user id in the token if available
       if (user) {
         token.id = user.id;
-        token.name = user.name;
       }
       return token;
-    },
-    async session({ session, token }) {
-      session.user = {
-        id: token.id,
-        name: token.name,
-      };
-      return session;
     },
   },
 });
