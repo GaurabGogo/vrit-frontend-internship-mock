@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Longest Consecutive Chain</title>
+    <style>
+      .background-leaf {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        z-index: -1;
+        background-image: linear-gradient(
+            to bottom,
+            rgba(0, 0, 0, 0.2) 0% 80%,
+            rgba(255, 255, 255, 0.2) 100%
+          ),
+          url("./bg.jpg");
+        background-size: cover;
+        background-position: center;
+      }
+    </style>
+    <!-- Include Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+  </head>
+  <body
+    class="font-sans bg-gray-200 min-h-screen flex items-center justify-center"
+  >
+    <div
+      class="relative p-6 rounded-md shadow-md w-full max-w-md text-white overflow-hidden"
+    >
+      <div class="background-leaf">&nbsp;</div>
+      <h1 class="text-2xl font-bold mb-4 text-center">
+        Longest Consecutive Chain
+      </h1>
+
+      <label for="numbers" class="block text-lg font-medium mb-2">
+        Enter the array elements (comma-separated):
+      </label>
+      <input
+        type="text"
+        id="numbers"
+        placeholder="e.g., 1,2,3,5,6,7,8,10"
+        required
+        class="border border-gray-300 p-2 rounded mb-4 w-full text-black"
+      />
+
+      <button
+        onclick="calculateChain()"
+        class="bg-blue-500 text-white p-2 rounded hover:bg-blue-600 w-full"
+      >
+        Calculate Longest Chain
+      </button>
+
+      <h2 class="text-xl font-semibold mt-6 text-center">Result:</h2>
+      <p id="result" class="mt-2 text-gray-200 text-center"></p>
+    </div>
+
+    <script>
+      function longestConsecutiveChain(arr) {
+        if (arr.length === 0) return 0;
+
+        let maxLength = 1;
+        let currentLength = 1;
+
+        for (let i = 1; i < arr.length; i++) {
+          if (arr[i] === arr[i - 1] + 1) {
+            currentLength++;
+          } else {
+            currentLength = 1;
+          }
+          maxLength = Math.max(maxLength, currentLength);
+        }
+
+        return maxLength;
+      }
+
+      function calculateChain() {
+        const numbersInput = document.getElementById("numbers").value;
+        const arr = numbersInput.split(",").map((num) => parseInt(num.trim()));
+
+        const result = longestConsecutiveChain(arr);
+
+        document.getElementById(
+          "result"
+        ).textContent = `Longest Chain Length: ${result}`;
+      }
+    </script>
+  </body>
+</html>

@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Count Smaller Elements</title>
+    <style>
+      .background-leaf {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        z-index: -1;
+        background-image: linear-gradient(
+            to bottom,
+            rgba(0, 0, 0, 0.2) 0% 80%,
+            rgba(255, 255, 255, 0.2) 100%
+          ),
+          url("./bg.jpg");
+        background-size: cover;
+        background-position: center;
+      }
+    </style>
+    <!-- Include Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+  </head>
+  <body
+    class="font-sans bg-gray-200 min-h-screen flex items-center justify-center"
+  >
+    <div
+      class="relative p-6 rounded-md shadow-md w-full max-w-md text-white overflow-hidden"
+    >
+      <div class="background-leaf">&nbsp;</div>
+      <h1 class="text-2xl font-bold mb-4 text-center">
+        Count Smaller Elements to the Right
+      </h1>
+
+      <label for="numbers" class="block text-lg font-medium mb-2">
+        Enter the array elements (comma-separated):
+      </label>
+      <input
+        type="text"
+        id="numbers"
+        placeholder="e.g., 5,2,6,1"
+        required
+        class="border border-gray-300 p-2 rounded mb-4 w-full text-black"
+      />
+
+      <button
+        onclick="calculateCounts()"
+        class="bg-blue-500 text-white p-2 rounded hover:bg-blue-600 w-full"
+      >
+        Calculate
+      </button>
+
+      <h2 class="text-xl font-semibold mt-6 text-center">Result:</h2>
+      <p id="result" class="mt-2 text-gray-200 text-center"></p>
+    </div>
+
+    <script>
+      function countSmaller(nums) {
+        const n = nums.length;
+        const counts = new Array(n).fill(0);
+
+        for (let i = 0; i < n; i++) {
+          for (let j = i + 1; j < n; j++) {
+            if (nums[j] < nums[i]) {
+              counts[i]++;
+            }
+          }
+        }
+
+        return counts;
+      }
+
+      function calculateCounts() {
+        // Get input values
+        const numbersInput = document.getElementById("numbers").value;
+
+        // Convert input values to array
+        const nums = numbersInput.split(",").map((num) => parseInt(num.trim()));
+
+        // Calculate counts
+        const result = countSmaller(nums);
+
+        // Display result
+        document.getElementById("result").textContent = `Counts: [${result.join(
+          ", "
+        )}]`;
+      }
+    </script>
+  </body>
+</html>
